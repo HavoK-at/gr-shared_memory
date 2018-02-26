@@ -26,27 +26,33 @@
 #define INCLUDED_SHARED_MEMORY_SAMPLE_COUNTER_TEST_IMPL_H
 
 #include <shared_memory/sample_counter_test.h>
+#include <chrono>
+#include <ctime>
 
-namespace gr {
-  namespace shared_memory {
+namespace gr
+{
+namespace shared_memory
+{
 
-    class sample_counter_test_impl : public sample_counter_test
-    {
-     private:
-      // Nothing to declare in this block.
+class sample_counter_test_impl : public sample_counter_test
+{
+  private:
+    size_t _itemsize;
+    unsigned long _samples_consumed;
+    std::chrono::duration<double> _elapsed_seconds;
+    std::chrono::system_clock::time_point _start;
 
-     public:
-      sample_counter_test_impl();
-      ~sample_counter_test_impl();
+  public:
+    sample_counter_test_impl(size_t itemsize);
+    ~sample_counter_test_impl();
 
-      // Where all the action really happens
-      int work(int noutput_items,
-         gr_vector_const_void_star &input_items,
-         gr_vector_void_star &output_items);
-    };
+    // Where all the action really happens
+    int work(int noutput_items,
+             gr_vector_const_void_star &input_items,
+             gr_vector_void_star &output_items);
+};
 
-  } // namespace shared_memory
+} // namespace shared_memory
 } // namespace gr
 
 #endif /* INCLUDED_SHARED_MEMORY_SAMPLE_COUNTER_TEST_IMPL_H */
-

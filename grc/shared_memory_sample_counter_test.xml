@@ -1,38 +1,45 @@
 <?xml version="1.0"?>
 <block>
-  <name>sample_counter_test</name>
+  <name>Sample Counter</name>
   <key>shared_memory_sample_counter_test</key>
   <category>[shared_memory]</category>
   <import>import shared_memory</import>
-  <make>shared_memory.sample_counter_test()</make>
-  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
-       Sub-nodes:
-       * name
-       * key (makes the value accessible as $keyname, e.g. in the make node)
-       * type -->
+  <make>shared_memory.sample_counter_test(itemsize=$type.size)</make>
+
   <param>
-    <name>...</name>
-    <key>...</key>
-    <type>...</type>
+      <name>Input Type</name>
+      <key>type</key>
+      <type>enum</type>
+      <option>
+        <name>Complex</name>
+        <key>complex</key>
+        <opt>size:gr.sizeof_gr_complex</opt>
+      </option>
+      <option>
+        <name>Float</name>
+        <key>float</key>
+        <opt>size:gr.sizeof_float</opt>
+      </option>
+      <option>
+        <name>Int</name>
+        <key>int</key>
+        <opt>size:gr.sizeof_int</opt>
+      </option>
+      <option>
+        <name>Short</name>
+        <key>short</key>
+        <opt>size:gr.sizeof_short</opt>
+      </option>
+      <option>
+        <name>Byte</name>
+        <key>byte</key>
+        <opt>size:gr.sizeof_char</opt>
+      </option>
   </param>
 
-  <!-- Make one 'sink' node per input. Sub-nodes:
-       * name (an identifier for the GUI)
-       * type
-       * vlen
-       * optional (set to 1 for optional inputs) -->
   <sink>
-    <name>in</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+		<name>in</name>
+		<type>$type</type>
   </sink>
 
-  <!-- Make one 'source' node per output. Sub-nodes:
-       * name (an identifier for the GUI)
-       * type
-       * vlen
-       * optional (set to 1 for optional inputs) -->
-  <source>
-    <name>out</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
-  </source>
 </block>

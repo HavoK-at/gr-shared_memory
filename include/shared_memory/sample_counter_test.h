@@ -50,7 +50,7 @@ namespace gr {
        * class. shared_memory::sample_counter_test::make is the public interface for
        * creating new instances.
        */
-      static sptr make();
+      static sptr make(size_t itemsize);
     };
 
   } // namespace shared_memory

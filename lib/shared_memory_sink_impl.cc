@@ -44,7 +44,7 @@ namespace gr {
      */
     shared_memory_sink_impl::shared_memory_sink_impl()
       : gr::sync_block("shared_memory_sink",
-              gr::io_signature::make(<+MIN_IN+>, <+MAX_IN+>, sizeof(<+ITYPE+>)),
+              gr::io_signature::make(1, 1, sizeof(gr_complex)),
               gr::io_signature::make(0, 0, 0))
     {}
 
@@ -60,7 +60,7 @@ namespace gr {
         gr_vector_const_void_star &input_items,
         gr_vector_void_star &output_items)
     {
-      const <+ITYPE+> *in = (const <+ITYPE+> *) input_items[0];
+      const gr_complex *in = (const gr_complex *) input_items[0];
 
       // Do <+signal processing+>
 

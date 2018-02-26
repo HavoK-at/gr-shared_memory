@@ -29,45 +29,54 @@
 #include <gnuradio/io_signature.h>
 #include "sample_counter_test_impl.h"
 
-namespace gr {
-  namespace shared_memory {
+namespace gr
+{
+namespace shared_memory
+{
 
-    sample_counter_test::sptr
-    sample_counter_test::make()
-    {
-      return gnuradio::get_initial_sptr
-        (new sample_counter_test_impl());
-    }
+sample_counter_test::sptr
+sample_counter_test::make(size_t itemsize)
+{
+    return gnuradio::get_initial_sptr(new sample_counter_test_impl(itemsize));
+}
 
-    /*
+/*
      * The private constructor
      */
-    sample_counter_test_impl::sample_counter_test_impl()
-      : gr::sync_block("sample_counter_test",
-              gr::io_signature::make(<+MIN_IN+>, <+MAX_IN+>, sizeof(<+ITYPE+>)),
-              gr::io_signature::make(0, 0, 0))
-    {}
+sample_counter_test_impl::sample_counter_test_impl(size_t itemsize)
+    : gr::sync_block("sample_counter_test",
+                     gr::io_signature::make(1, 1, itemsize),
+                     gr::io_signature::make(0, 0, 0)),
+      _itemsize(itemsize),
+      _samples_consumed(0)
+{
+    _start = std::chrono::system_clock::now();
+}
 
-    /*
+/*
      * Our virtual destructor.
      */
-    sample_counter_test_impl::~sample_counter_test_impl()
+sample_counter_test_impl::~sample_counter_test_impl()
+{
+}
+
+int sample_counter_test_impl::work(int noutput_items,
+                                   gr_vector_const_void_star &input_items,
+                                   gr_vector_void_star &output_items)
+{
+    auto temp_start = std::chrono::system_clock::now();
+    _elapsed_seconds = temp_start - _start;
+
+    if (_elapsed_seconds.count() >= 1)
     {
+        std::cout << "Size (" << _itemsize << " B): " << _samples_consumed << " S/s" << std::endl;
+        _start = temp_start;
+        _samples_consumed = 0;
     }
+    _samples_consumed += noutput_items;
+    consume_each(noutput_items);
+    return 0;
+}
 
-    int
-    sample_counter_test_impl::work(int noutput_items,
-        gr_vector_const_void_star &input_items,
-        gr_vector_void_star &output_items)
-    {
-      const <+ITYPE+> *in = (const <+ITYPE+> *) input_items[0];
-
-      // Do <+signal processing+>
-
-      // Tell runtime system how many output items we produced.
-      return noutput_items;
-    }
-
-  } /* namespace shared_memory */
+} /* namespace shared_memory */
 } /* namespace gr */
-

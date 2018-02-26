@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <block>
-  <name>shared_memory_sink</name>
+  <name>Shared Memory Sink</name>
   <key>shared_memory_shared_memory_sink</key>
   <category>[shared_memory]</category>
   <import>import shared_memory</import>
@@ -10,11 +10,6 @@
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
-  <param>
-    <name>...</name>
-    <key>...</key>
-    <type>...</type>
-  </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:
        * name (an identifier for the GUI)
@@ -23,7 +18,7 @@
        * optional (set to 1 for optional inputs) -->
   <sink>
     <name>in</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <type>complex</type>
   </sink>
 
   <!-- Make one 'source' node per output. Sub-nodes:
@@ -31,8 +26,4 @@
        * type
        * vlen
        * optional (set to 1 for optional inputs) -->
-  <source>
-    <name>out</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
-  </source>
 </block>
