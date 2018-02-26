@@ -16,7 +16,7 @@
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-
 install(FILES
-    DESTINATION share/gnuradio/grc/blocks
+    shared_memory_shared_memory_sink.xml
+    shared_memory_sample_counter_test.xml DESTINATION share/gnuradio/grc/blocks
 )

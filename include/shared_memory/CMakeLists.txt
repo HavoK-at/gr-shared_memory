@@ -22,5 +22,6 @@
 ########################################################################
 install(FILES
     api.h
-    DESTINATION include/shared_memory
+    shared_memory_sink.h
+    sample_counter_test.h DESTINATION include/shared_memory
 )

@@ -24,9 +24,9 @@ include(GrPlatform) #define LIB_SUFFIX
 
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
-
 list(APPEND shared_memory_sources
-)
+    shared_memory_sink_impl.cc
+    sample_counter_test_impl.cc )
 
 set(shared_memory_sources "${shared_memory_sources}" PARENT_SCOPE)
 if(NOT shared_memory_sources)
