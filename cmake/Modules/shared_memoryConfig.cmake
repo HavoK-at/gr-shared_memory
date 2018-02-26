@@ -1,0 +1,30 @@
+INCLUDE(FindPkgConfig)
+PKG_CHECK_MODULES(PC_SHARED_MEMORY shared_memory)
+
+FIND_PATH(
+    SHARED_MEMORY_INCLUDE_DIRS
+    NAMES shared_memory/api.h
+    HINTS $ENV{SHARED_MEMORY_DIR}/include
+        ${PC_SHARED_MEMORY_INCLUDEDIR}
+    PATHS ${CMAKE_INSTALL_PREFIX}/include
+          /usr/local/include
+          /usr/include
+)
+
+FIND_LIBRARY(
+    SHARED_MEMORY_LIBRARIES
+    NAMES gnuradio-shared_memory
+    HINTS $ENV{SHARED_MEMORY_DIR}/lib
+        ${PC_SHARED_MEMORY_LIBDIR}
+    PATHS ${CMAKE_INSTALL_PREFIX}/lib
+          ${CMAKE_INSTALL_PREFIX}/lib64
+          /usr/local/lib
+          /usr/local/lib64
+          /usr/lib
+          /usr/lib64
+)
+
+INCLUDE(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(SHARED_MEMORY DEFAULT_MSG SHARED_MEMORY_LIBRARIES SHARED_MEMORY_INCLUDE_DIRS)
+MARK_AS_ADVANCED(SHARED_MEMORY_LIBRARIES SHARED_MEMORY_INCLUDE_DIRS)
+

@@ -1,0 +1,7 @@
+/*!
+ * \defgroup block GNU Radio SHARED_MEMORY C++ Signal Processing Blocks
+ * \brief All C++ blocks that can be used from the SHARED_MEMORY GNU Radio
+ *        module are listed here or in the subcategories below.
+ *
+ */
+
